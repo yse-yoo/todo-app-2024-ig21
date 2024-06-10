@@ -8,6 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
+// Routing
 app.get('/', (req, res) => {
     res.send('Hello, api server');
 })
