@@ -40,7 +40,7 @@ function TodoList() {
             <button onClick={addTodo}>Add</button>
             <ul>
                 {todos.map((todo, index) => (
-                    <li>
+                    <li key={index}>
                         <span>
                             {todo.title}
                         </span>
