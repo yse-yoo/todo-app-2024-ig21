@@ -38,6 +38,15 @@ function TodoList() {
                 onChange={changeNewTodo}
             />
             <button onClick={addTodo}>Add</button>
+            <ul>
+                {todos.map((todo, index) => (
+                    <li>
+                        <span>
+                            {todo.title}
+                        </span>
+                    </li>
+                ))}
+            </ul>
         </div>
     )
 }
