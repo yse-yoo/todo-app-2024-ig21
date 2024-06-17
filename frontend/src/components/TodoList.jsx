@@ -13,14 +13,20 @@ function TodoList() {
 
     // changeハンドラー
     const changeNewTodo = (e) => {
-        console.log(e.target.value)
+        // console.log(e.target.value)
         var data = { title: e.target.value };
         setNewTodo(data);
     }
 
-    // clickハンドラー
+    // clickハンドラー(Addボタンをクリックしたら動く)
     const addTodo = async () => {
-
+        // TODO: APIサーバ更新処理
+        // 入力チェック
+        if (newTodo.title.trim() === "") return;
+        // todos に値を追加
+        setTodos([...todos, newTodo]);
+        // newTodo を初期化
+        setNewTodo(defaultTodo)
     }
 
     return (
@@ -31,7 +37,7 @@ function TodoList() {
                 value={newTodo.title}
                 onChange={changeNewTodo}
             />
-            <button>Add</button>
+            <button onClick={addTodo}>Add</button>
         </div>
     )
 }
