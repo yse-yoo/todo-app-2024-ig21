@@ -14,8 +14,13 @@ function TodoList() {
     // changeハンドラー
     const changeNewTodo = (e) => {
         console.log(e.target.value)
-        var data = { title: e.target.value};
+        var data = { title: e.target.value };
         setNewTodo(data);
+    }
+
+    // clickハンドラー
+    const addTodo = async () => {
+
     }
 
     return (
@@ -23,6 +28,7 @@ function TodoList() {
             <h2>TodoList</h2>
             <input
                 type="text"
+                value={newTodo.title}
                 onChange={changeNewTodo}
             />
             <button>Add</button>
