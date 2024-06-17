@@ -20,6 +20,13 @@ function TodoList() {
     const fetchTodos = async () => {
         //TODO: バックエンド(API)からTODOリストを取得
         console.log('get todos')
+        // test data
+        const data = [
+            { id:1, title:"買い物", completed: false },
+            { id:2, title:"打合せ", completed: true },
+            { id:3, title:"スポーツジムに行く", completed: false },
+        ]
+        setTodos(data);
     }
 
     // changeハンドラー
