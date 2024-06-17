@@ -13,8 +13,14 @@ function TodoList() {
 
     // useEffect(callback, array)
     useEffect(() => {
-        console.log('get todos')
+        fetchTodos();
     }, [])
+
+    // APIサーバからデータ取得
+    const fetchTodos = async () => {
+        //TODO: バックエンド(API)からTODOリストを取得
+        console.log('get todos')
+    }
 
     // changeハンドラー
     const changeNewTodo = (e) => {
