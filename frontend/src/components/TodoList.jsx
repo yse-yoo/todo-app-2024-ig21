@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const defaultTodo = {
     id: 0,
@@ -10,6 +10,11 @@ const defaultTodo = {
 function TodoList() {
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState(defaultTodo);
+
+    // useEffect(callback, array)
+    useEffect(() => {
+        console.log('get todos')
+    }, [])
 
     // changeハンドラー
     const changeNewTodo = (e) => {
