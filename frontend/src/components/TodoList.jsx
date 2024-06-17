@@ -14,7 +14,7 @@ function TodoList() {
     // changeハンドラー
     const changeNewTodo = (e) => {
         console.log(e.target.value)
-        var data = { title: e.taget.value };
+        var data = { title: e.target.value};
         setNewTodo(data);
     }
 
