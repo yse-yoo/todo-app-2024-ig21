@@ -11,10 +11,18 @@ function TodoList() {
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState(defaultTodo);
 
+    // changeハンドラー
+    const changeNewTodo = (e) => {
+        console.log(e.target.value)
+    }
+
     return (
         <div>
             <h2>TodoList</h2>
-            <input type="text" />
+            <input
+                type="text"
+                onChange={changeNewTodo}
+            />
             <button>Add</button>
         </div>
     )
