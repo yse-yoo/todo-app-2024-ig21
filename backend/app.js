@@ -1,7 +1,12 @@
+// ES6 import ES5 require
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
-const port = 3001;
+dotenv.config();
+
+const HOST = process.env.HOST;
+const PORT = process.env.PORT;
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -10,10 +15,10 @@ app.use(cors());
 
 // Routing
 app.get('/', (req, res) => {
-    res.send('Hello, api server');
+    res.json({ message: 'Hello, api server' });
 })
 
 // サーバ待機（server listen)
-app.listen(port, () => {
-    console.log(`Server listen http://localhost:${port}`)
+app.listen(PORT, HOST, () => {
+    console.log(`Server listen http://${HOST}:${PORT}`)
 });
