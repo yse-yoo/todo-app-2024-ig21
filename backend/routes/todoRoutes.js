@@ -36,6 +36,23 @@ router.post('/todo/add', (req, res) => {
     res.json(data);
 })
 
+// データ更新（POST）
+router.post('/todo/update/:id', (req, res) => {
+    //TODO: DB処理
+    var data = req.body;
+    data = { id: 1, title: "買い物", completed: true };
+    res.json(data);
+})
+
+// データ削除（POST）
+router.post('/todo/delete/:id', (req, res) => {
+    //TODO: DB処理
+    var id = req.params.id;
+    res.json({ id: id });
+})
+
+
+
 
 // モジュール化
 module.exports = router;
