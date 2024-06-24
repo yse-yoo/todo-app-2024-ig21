@@ -10,6 +10,7 @@ router.get('/todo/get', (req, res) => {
         { id: 1, title: "買い物", completed: false },
         { id: 2, title: "打合せ", completed: false },
         { id: 3, title: "銀行", completed: true },
+        { id: 4, title: "スポーツジムに行く", completed: true },
     ]
     res.json(todos);
 })
@@ -50,9 +51,6 @@ router.post('/todo/delete/:id', (req, res) => {
     var id = req.params.id;
     res.json({ id: id });
 })
-
-
-
 
 // モジュール化
 module.exports = router;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const defaultTodo = {
     id: 0,
@@ -11,7 +12,7 @@ function TodoList() {
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState(defaultTodo);
 
-    // useEffect(callback, array)
+    //初回マウント時に実行
     useEffect(() => {
         fetchTodos();
     }, [])
@@ -19,14 +20,20 @@ function TodoList() {
     // APIサーバからデータ取得
     const fetchTodos = async () => {
         //TODO: バックエンド(API)からTODOリストを取得
-        console.log('get todos')
+        // http://localhost:3001/api/todo/get
+        const uri = 'http://localhost:3001/api/todo/get';
+        try {
+            const res = await axios.get(uri);
+            setTodos(res.data);
+        } catch (error) {
+            
+        }
         // test data
-        const data = [
-            { id:1, title:"買い物", completed: false },
-            { id:2, title:"打合せ", completed: true },
-            { id:3, title:"スポーツジムに行く", completed: false },
-        ]
-        setTodos(data);
+        // const data = [
+        //     { id:1, title:"買い物", completed: false },
+        //     { id:2, title:"打合せ", completed: true },
+        //     { id:3, title:"スポーツジムに行く", completed: false },
+        // ]
     }
 
     // changeハンドラー
