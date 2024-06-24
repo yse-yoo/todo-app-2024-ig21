@@ -28,6 +28,13 @@ router.get('/todo/fetch/:id', (req, res) => {
     res.json(todo);
 })
 
+// データ追加（POST）
+router.post('/todo/add', (req, res) => {
+    //TODO: DB処理
+    var data = req.body;
+    data = { id: 1, title: data.title, completed: false };
+    res.json(data);
+})
 
 
 // モジュール化
