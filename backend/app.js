@@ -16,6 +16,7 @@ app.use(cors());
 // routes/todoRoutes.js を読み込み
 const todoRoutes = require('./routes/todoRoutes');
 // todoRoutesを利用 
+// /api は共通
 app.use('/api', todoRoutes);
 
 // Routing
