@@ -14,6 +14,21 @@ router.get('/todo/get', (req, res) => {
     res.json(todos);
 })
 
+router.get('/todo/fetch/:id', (req, res) => {
+    //TODO: DB処理
+
+    const id = parseInt(req.params.id, 10);
+    // テストデータを返す
+    const todos = [
+        { id: 1, title: "買い物", completed: false },
+        { id: 2, title: "打合せ", completed: false },
+        { id: 3, title: "銀行", completed: true },
+    ]
+    const todo = todos.find(todo => todo.id === id);
+    res.json(todo);
+})
+
+
 
 // モジュール化
 module.exports = router;
