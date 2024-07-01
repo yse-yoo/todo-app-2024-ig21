@@ -25,10 +25,9 @@ function TodoList() {
         // const uri = 'http://localhost/todo_test/api/todo/get.php';
         try {
             const res = await axios.get(uri);
-            console.log(res)
             setTodos(res.data);
         } catch (error) {
-            
+
         }
         // test data
         // const data = [
@@ -47,11 +46,18 @@ function TodoList() {
 
     // clickハンドラー(Addボタンをクリックしたら動く)
     const addTodo = async () => {
-        // TODO: APIサーバ更新処理
         // 入力チェック
         if (newTodo.title.trim() === "") return;
-        // todos に値を追加
-        setTodos([...todos, newTodo]);
+        const uri = 'http://localhost:3001/api/todo/add';
+        try {
+            // APIサーバにリクエスト
+            const res = await axios.post(uri, newTodo);
+            // todos に値を追加
+            setTodos([...todos, res.data]);
+        } catch (error) {
+
+        }
+
         // newTodo を初期化
         setNewTodo(defaultTodo)
     }
