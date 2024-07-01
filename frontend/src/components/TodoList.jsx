@@ -19,22 +19,13 @@ function TodoList() {
 
     // APIサーバからデータ取得
     const fetchTodos = async () => {
-        //TODO: バックエンド(API)からTODOリストを取得
-        // http://localhost:3001/api/todo/get
         const uri = 'http://localhost:3001/api/todo/get';
-        // const uri = 'http://localhost/todo_test/api/todo/get.php';
         try {
             const res = await axios.get(uri);
             setTodos(res.data);
         } catch (error) {
 
         }
-        // test data
-        // const data = [
-        //     { id:1, title:"買い物", completed: false },
-        //     { id:2, title:"打合せ", completed: true },
-        //     { id:3, title:"スポーツジムに行く", completed: false },
-        // ]
     }
 
     // changeハンドラー

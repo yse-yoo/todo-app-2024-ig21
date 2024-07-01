@@ -9,13 +9,6 @@ const prisma = new PrismaClient();
 
 // http://localhost:3001/api/todo/get
 router.get('/todo/get', async (req, res) => {
-    // テストデータを返す
-    // const todos = [
-    //     { id: 1, title: "買い物", completed: false },
-    //     { id: 2, title: "打合せ", completed: false },
-    //     { id: 3, title: "銀行", completed: true },
-    //     { id: 4, title: "スポーツジムに行く", completed: true },
-    // ]
     try {
         // SELECT * FROM todos;
         const todos = await prisma.todo.findMany();
@@ -27,12 +20,6 @@ router.get('/todo/get', async (req, res) => {
 
 router.get('/todo/fetch/:id', async (req, res) => {
     const id = parseInt(req.params.id);
-    // const todos = [
-    //     { id: 1, title: "買い物", completed: false },
-    //     { id: 2, title: "打合せ", completed: false },
-    //     { id: 3, title: "銀行", completed: true },
-    // ]
-    // const todo = todos.find(todo => todo.id === id);
     try {
         // SELECT * FROM todos;
         const todo = await prisma.todo.findFirst(
@@ -61,8 +48,6 @@ router.post('/todo/add', async (req, res) => {
 
 // データ更新（POST）
 router.post('/todo/update/:id', async (req, res) => {
-    // data = { id: 1, title: "買い物", completed: true };
-
     const id = parseInt(req.params.id);
     const { complted } = req.body;
     const data = req.body;
