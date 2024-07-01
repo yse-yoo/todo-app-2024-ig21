@@ -11,7 +11,11 @@ const prisma = new PrismaClient();
 router.get('/todo/get', async (req, res) => {
     try {
         // SELECT * FROM todos;
-        const todos = await prisma.todo.findMany();
+        const todos = await prisma.todo.findMany(
+            {
+                orderBy: { created_at: 'desc' }
+            }
+        );
         res.json(todos);
     } catch (error) {
         res.json({ message: "add error" })

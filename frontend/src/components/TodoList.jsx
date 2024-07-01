@@ -8,9 +8,14 @@ const defaultTodo = {
     order: 0,
 }
 
+
+const API_URL = process.env.REACT_APP_API_URL;
+
 function TodoList() {
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState(defaultTodo);
+
+    console.log(API_URL);
 
     //初回マウント時に実行
     useEffect(() => {
@@ -19,7 +24,7 @@ function TodoList() {
 
     // APIサーバからデータ取得
     const fetchTodos = async () => {
-        const uri = 'http://localhost:3001/api/todo/get';
+        const uri = API_URL + '/api/todo/get';
         try {
             const res = await axios.get(uri);
             setTodos(res.data);
@@ -39,12 +44,12 @@ function TodoList() {
     const addTodo = async () => {
         // 入力チェック
         if (newTodo.title.trim() === "") return;
-        const uri = 'http://localhost:3001/api/todo/add';
+        const uri = API_URL + '/api/todo/add';
         try {
             // APIサーバにリクエスト
             const res = await axios.post(uri, newTodo);
             // todos に値を追加
-            setTodos([...todos, res.data]);
+            setTodos([res.data, ...todos]);
         } catch (error) {
 
         }
