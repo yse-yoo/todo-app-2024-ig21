@@ -8,6 +8,9 @@ dotenv.config();
 const HOST = process.env.HOST;
 const PORT = process.env.PORT;
 
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -20,8 +23,16 @@ const todoRoutes = require('./routes/todoRoutes');
 app.use('/api', todoRoutes);
 
 // Routing
-app.get('/', (req, res) => {
-    res.json({ message: 'Hello, api server' });
+app.get('/', async (req, res) => {
+    // res.json({ message: 'Hello, api server' });
+    try {
+        await prisma.$connect();
+        res.json({ message: "Connected to the database successfully!" });
+    } catch (error) {
+        console.error("Failed to connect to the database", error);
+    } finally {
+        await prisma.$disconnect();
+    }
 })
 
 // サーバ待機（server listen)

@@ -22,8 +22,10 @@ function TodoList() {
         //TODO: バックエンド(API)からTODOリストを取得
         // http://localhost:3001/api/todo/get
         const uri = 'http://localhost:3001/api/todo/get';
+        // const uri = 'http://localhost/todo_test/api/todo/get.php';
         try {
             const res = await axios.get(uri);
+            console.log(res)
             setTodos(res.data);
         } catch (error) {
             

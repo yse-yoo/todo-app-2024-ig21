@@ -3,6 +3,7 @@ const express = require('express');
 // Routerを利用
 const router = express.Router();
 
+// http://localhost:3001/api/todo/get
 router.get('/todo/get', (req, res) => {
     //TODO: DB処理
     // テストデータを返す
