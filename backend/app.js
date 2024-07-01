@@ -8,6 +8,7 @@ dotenv.config();
 const HOST = process.env.HOST;
 const PORT = process.env.PORT;
 
+// PrismaClient を作成(MySQLをプログラムで操作できるようになる)
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 

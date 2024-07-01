@@ -3,6 +3,10 @@ const express = require('express');
 // Routerを利用
 const router = express.Router();
 
+// PrismaClient を作成(MySQLをプログラムで操作できるようになる)
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
 // http://localhost:3001/api/todo/get
 router.get('/todo/get', (req, res) => {
     //TODO: DB処理
@@ -30,11 +34,17 @@ router.get('/todo/fetch/:id', (req, res) => {
     res.json(todo);
 })
 
-// データ追加（POST）
-router.post('/todo/add', (req, res) => {
-    //TODO: DB処理
-    var data = req.body;
-    data = { id: 1, title: data.title, completed: false };
+// データ追加（POST）: 非同期通信
+router.post('/todo/add', async (req, res) => {
+    // リクエストされたデータを取得
+    const data = req.body;
+    try {
+        // INSERT INTO todos (title) VALUES ('xxxx', false);
+        const todo = await prisma.todo.create({ data: data });
+        res.json(todo);
+    } catch (error) {
+        res.json({ message: "add error" })
+    }
     res.json(data);
 })
 
