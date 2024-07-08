@@ -7,9 +7,41 @@ const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// http://localhost:3001/api/todo/get
-router.get('/todo/get', async (req, res) => {
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    console.log(authHeader)
+    if (!authHeader) {
+        return res.status(401).json({ message: 'Authorization header missing' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({ message: 'Token missing' });
+    }
+
     try {
+        const decoded = jwt.verify(token, secret);
+        req.userId = decoded.userId;
+        next();
+    } catch (err) {
+        if (err.name === 'TokenExpiredError') {
+            return res.status(403).json({ message: 'Token expired' });
+        } else if (err.name === 'JsonWebTokenError') {
+            return res.status(403).json({ message: 'Invalid token' });
+        } else {
+            return res.status(403).json({ message: 'Token verification failed' });
+        }
+    }
+};
+
+// http://localhost:3001/api/todo/get
+router.get('/todo/get', authenticateToken, async (req, res) => {
+    const token = req.headers['authorization'].split(' ')[1];
+    // const token = req.headers['authorization'];
+    console.log(token)
+    try {
+        const decoded = jwt.verify(token, secret);
+        console.log("decoded", decoded)
         // SELECT * FROM todos;
         const todos = await prisma.todo.findMany(
             {
@@ -18,7 +50,7 @@ router.get('/todo/get', async (req, res) => {
         );
         res.json(todos);
     } catch (error) {
-        res.json({ message: "add error" })
+        res.json({ message: "get error" })
     }
 })
 
@@ -40,6 +72,10 @@ router.get('/todo/fetch/:id', async (req, res) => {
 // データ追加（POST）: 非同期通信
 router.post('/todo/add', async (req, res) => {
     // リクエストされたデータを取得
+    const token = req.headers['authorization'];
+    console.log(token)
+    const user = jwt.verify(token, secret);
+    console.log("user", user)
     const data = req.body;
     try {
         // INSERT INTO todos (title) VALUES ('xxxx', false);
@@ -56,7 +92,7 @@ router.post('/todo/update/:id', async (req, res) => {
     const { complted } = req.body;
     const data = req.body;
     try {
-        const todo = await prisma.todo.update({ 
+        const todo = await prisma.todo.update({
             data: { complted: complted },
             where: { id: Number(id) }
         }
@@ -72,7 +108,7 @@ router.post('/todo/delete/:id', async (req, res) => {
     //TODO: DB処理
     const id = parseInt(req.params.id);
     try {
-        const todo = await prisma.todo.delete({ 
+        const todo = await prisma.todo.delete({
             where: { id: Number(id) }
         });
         res.json(todo);
@@ -81,5 +117,4 @@ router.post('/todo/delete/:id', async (req, res) => {
     }
 })
 
-// モジュール化
 module.exports = router;

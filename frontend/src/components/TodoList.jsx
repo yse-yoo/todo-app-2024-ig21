@@ -24,9 +24,14 @@ function TodoList() {
 
     // APIサーバからデータ取得
     const fetchTodos = async () => {
+        const token = localStorage.getItem('token');
         const uri = API_URL + '/api/todo/get';
         try {
-            const res = await axios.get(uri);
+            const res = await axios.get(uri, {
+                headers: {
+                    Authorization: token,
+                },
+            });
             setTodos(res.data);
         } catch (error) {
 

@@ -19,9 +19,11 @@ app.use(cors());
 
 // routes/todoRoutes.js を読み込み
 const todoRoutes = require('./routes/todoRoutes');
+const authRoutes = require('./routes/authRoutes');
 // todoRoutesを利用 
 // /api は共通
 app.use('/api', todoRoutes);
+app.use('/api', authRoutes);
 
 // Routing
 app.get('/', async (req, res) => {
