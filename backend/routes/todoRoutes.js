@@ -1,11 +1,10 @@
-// Expressモジュールを読み込み
 const express = require('express');
-// Routerを利用
-const router = express.Router();
-
-// PrismaClient を作成(MySQLをプログラムで操作できるようになる)
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
+const router = express.Router();
 const prisma = new PrismaClient();
+const secret = process.env.JWT_SECRET || 'your-secret-key';
 
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
@@ -15,6 +14,7 @@ const authenticateToken = (req, res, next) => {
     }
 
     const token = authHeader.split(' ')[1];
+    console.log("token:", token)
     if (!token) {
         return res.status(401).json({ message: 'Token missing' });
     }

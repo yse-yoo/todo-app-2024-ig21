@@ -15,8 +15,6 @@ function TodoList() {
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState(defaultTodo);
 
-    console.log(API_URL);
-
     //初回マウント時に実行
     useEffect(() => {
         fetchTodos();
@@ -50,9 +48,14 @@ function TodoList() {
         // 入力チェック
         if (newTodo.title.trim() === "") return;
         const uri = API_URL + '/api/todo/add';
+        const token = localStorage.getItem('token');
         try {
             // APIサーバにリクエスト
-            const res = await axios.post(uri, newTodo);
+            const res = await axios.post(uri, newTodo,
+                {
+                    header: "Baerer " + token,
+                }
+            );
             // todos に値を追加
             setTodos([res.data, ...todos]);
         } catch (error) {
